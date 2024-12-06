@@ -1,4 +1,4 @@
-package db
+package easy_sql
 
 import (
 	"regexp"
