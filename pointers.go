@@ -7,7 +7,7 @@ import (
 	"unsafe"
 )
 
-func assignPtrType(field reflect.Value) (any, error) {
+func _AssignPtrType(field reflect.Value) (any, error) {
 	switch field.Type().String() {
 	case "int":
 		return (*int)(unsafe.Pointer(field.UnsafeAddr())), nil
@@ -24,11 +24,18 @@ func assignPtrType(field reflect.Value) (any, error) {
 	}
 }
 
-func GetPointers(v any) ([]any, error) {
+func _GetPointers(v any) ([]any, error) {
 	var vPointers []any
-	var rv = reflect.ValueOf(v).Elem()
+	var rv = reflect.ValueOf(v)
+	if !_IsPtr(rv) {
+		return nil, fmt.Errorf("v is not a pointer")
+	}
+	if !_IsStruct(rv) {
+		return nil, fmt.Errorf("v is not a struct")
+	}
+	rv = reflect.ValueOf(v).Elem()
 	for i := range rv.NumField() {
-		ptr, err := assignPtrType(rv.Field(i))
+		ptr, err := _AssignPtrType(rv.Field(i))
 		if err != nil {
 			return nil, err
 		}

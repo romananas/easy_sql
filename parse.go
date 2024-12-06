@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func ParseQuerys(query string) []string {
+func _ParseQuerys(query string) []string {
 	re := regexp.MustCompile(`SELECT\s+(.*?)\s+FROM`)
 	match := re.FindStringSubmatch(query)
 	if len(match) == 0 {

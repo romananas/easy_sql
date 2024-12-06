@@ -2,12 +2,12 @@ package easy_sql
 
 import "reflect"
 
-func _ReadTags(v any) []string {
-	var tags []string
+func _ReadNames(v any) []string {
+	var names []string
 	tv := reflect.TypeOf(v).Elem()
 	for i := range tv.NumField() {
 		field := tv.Field(i)
-		tags = append(tags, field.Tag.Get("sql"))
+		names = append(names, field.Name)
 	}
-	return tags
+	return names
 }
