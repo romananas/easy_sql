@@ -1,4 +1,4 @@
-package easy_sql
+package easysql
 
 func (d DB) QueryRow(query string, dest any, args ...any) error {
 	keys := _ParseQuerys(query)
